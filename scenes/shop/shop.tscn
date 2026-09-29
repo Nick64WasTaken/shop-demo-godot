@@ -1,0 +1,701 @@
+[gd_scene format=3 uid="uid://q52nt4245fro"]
+
+[ext_resource type="Script" uid="uid://dlxxv4nittq3u" path="res://scripts/shop/ShopManager.cs" id="1_8qn5i"]
+[ext_resource type="AudioStream" uid="uid://dgn4qvknh2v5" path="res://assets/audio/bgm.wav" id="1_fs6yy"]
+[ext_resource type="Script" uid="uid://cnt1wbk3w0byh" path="res://scripts/shop/ShopSoundManager.cs" id="1_qaxay"]
+[ext_resource type="Material" uid="uid://b556y4jnjdr6i" path="res://assets/tres/background-blur.tres" id="2_131kw"]
+[ext_resource type="Texture2D" uid="uid://dlb5pdmpq6551" path="res://assets/textures/shopkeeper.png" id="4_jp048"]
+[ext_resource type="Material" uid="uid://b7ao6g1oomrda" path="res://assets/tres/blur.tres" id="4_vk20h"]
+[ext_resource type="Script" uid="uid://cet2508nduvcv" path="res://scripts/misc/DialogueManager.cs" id="5_ge4d2"]
+[ext_resource type="AudioStream" uid="uid://bhliaw1bs5gn7" path="res://assets/audio/menu-move-rev.wav" id="5_k5co3"]
+[ext_resource type="AudioStream" uid="uid://1co5mrdnuve5" path="res://assets/audio/buy-rev.wav" id="6_k5co3"]
+[ext_resource type="Texture2D" uid="uid://jwlshi4xvkae" path="res://assets/textures/barcode.png" id="6_ptf86"]
+[ext_resource type="AudioStream" uid="uid://bc6okuod4sgac" path="res://assets/audio/error.wav" id="7_6kbe7"]
+[ext_resource type="FontFile" uid="uid://paudbmk4a0oh" path="res://assets/fonts/MonacoNerdFontMono-Regular.ttf" id="8_vk20h"]
+[ext_resource type="Texture2D" uid="uid://c0uc1qvndxagl" path="res://assets/textures/receipt.png" id="9_tp26b"]
+[ext_resource type="LabelSettings" uid="uid://chx1nafolt53e" path="res://assets/tres/wallet_label.tres" id="10_dww4p"]
+[ext_resource type="FontFile" uid="uid://c76dxelfkvjy7" path="res://assets/fonts/helvetica-rounded-bold-5871d05ead8de.otf" id="13_131kw"]
+[ext_resource type="Script" uid="uid://dtqihfdc7exsv" path="res://scripts/player/DebugManager.cs" id="14_xoc10"]
+[ext_resource type="Texture2D" uid="uid://dlo2vfmk4wo1n" path="res://icon.svg" id="15_k5co3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8qn5i"]
+bg_color = Color(1, 0.5568628, 0, 1)
+
+[sub_resource type="Animation" id="Animation_dww4p"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-620, 17)]
+}
+
+[sub_resource type="Animation" id="Animation_g6lcs"]
+resource_name = "slide_shopkeeper"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.76215386, 2.39903),
+"update": 0,
+"values": [Vector2(-620, 17), Vector2(300, 17)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_131kw"]
+_data = {
+&"RESET": SubResource("Animation_dww4p"),
+&"slide_shopkeeper": SubResource("Animation_g6lcs")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tp26b"]
+bg_color = Color(0, 0.34509805, 0.67058825, 1)
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 15.0
+shadow_color = Color(0, 0, 0, 0.74509805)
+shadow_size = 4
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcdpw"]
+bg_color = Color(0, 0.34509805, 0.67058825, 1)
+border_color = Color(0, 0.24705882, 0.49411765, 0)
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vk20h"]
+bg_color = Color(0.9843137, 0.8509804, 0.078431375, 1)
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_vk20h"]
+font = ExtResource("13_131kw")
+font_size = 36
+font_color = Color(0.9843137, 0.8509804, 0.078431375, 1)
+outline_size = 5
+outline_color = Color(0, 0.49803922, 0.7294118, 0)
+shadow_color = Color(0, 0, 0, 0.85490197)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptf86"]
+bg_color = Color(0.9372549, 0.9372549, 0.9372549, 1)
+draw_center = false
+skew = Vector2(0.001, 0)
+shadow_color = Color(0, 0, 0, 0)
+shadow_size = 5
+shadow_offset = Vector2(5, 3)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8qn5i"]
+font = ExtResource("8_vk20h")
+font_color = Color(0, 0, 0, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_tp26b"]
+base_font = ExtResource("8_vk20h")
+variation_transform = Transform2D(1.4, 0, -0.078, 1, 0, 0)
+spacing_glyph = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qn5i"]
+
+[sub_resource type="Animation" id="Animation_131kw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DescriptionContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xoc10"]
+resource_name = "blur_screen"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DescriptionContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_k5co3"]
+resource_name = "unblur_screen"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DescriptionContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k5co3"]
+_data = {
+&"RESET": SubResource("Animation_131kw"),
+&"blur_screen": SubResource("Animation_xoc10"),
+&"unblur_screen": SubResource("Animation_k5co3")
+}
+
+[sub_resource type="Animation" id="Animation_xcdpw"]
+resource_name = "Fade_in_dialogue"
+length = 1.1333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 4.4162498),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/LinesContainer/VBoxContainer/Red:custom_minimum_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.7, 0.4),
+"update": 0,
+"values": [Vector2(0, 10), Vector2(1451, 10)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/LinesContainer/VBoxContainer/Green:custom_minimum_size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.7, 0.4),
+"update": 0,
+"values": [Vector2(0, 15), Vector2(1451, 15)]
+}
+
+[sub_resource type="Animation" id="Animation_tp26b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/LinesContainer/VBoxContainer/Red:custom_minimum_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 10)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/LinesContainer/VBoxContainer/Green:custom_minimum_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 15)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DescriptionContainer:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Shopkeeper:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-620, 17)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vk20h"]
+_data = {
+&"Fade_in_dialogue": SubResource("Animation_xcdpw"),
+&"RESET": SubResource("Animation_tp26b")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_6kbe7"]
+
+[node name="Shop" type="Control" unique_id=10606354 node_paths=PackedStringArray("_playerWallet", "_dialogueLabel", "_shopGrid", "_dialogueContainer", "_controlsContainer", "_animationPlayer", "_description")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8qn5i")
+jsonLocation = "res://assets/json/shop_data.json"
+_playerWallet = NodePath("VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/WalletContainer/HBoxContainer/Wallet")
+_dialogueLabel = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/MarginContainer/Dialogue")
+_shopGrid = NodePath("VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/ItemList")
+_dialogueContainer = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer")
+_controlsContainer = NodePath("VBoxContainer/ControlsContainer")
+_animationPlayer = NodePath("DescriptionContainer/DescriptionAnimator")
+_description = NodePath("VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/MarginContainer/Dialogue")
+
+[node name="Blur" type="PanelContainer" parent="." unique_id=63747234]
+material = ExtResource("2_131kw")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8qn5i")
+
+[node name="ShopSoundManager" type="Node" parent="." unique_id=1479101780]
+script = ExtResource("1_qaxay")
+backgroundMusic = ExtResource("1_fs6yy")
+shopMenuMoveSound = ExtResource("5_k5co3")
+shopBuySound = ExtResource("6_k5co3")
+errorSound = ExtResource("7_6kbe7")
+EnableBGM = false
+EnableAudio = false
+
+[node name="Shopkeeper" type="Control" parent="." unique_id=1766699219]
+z_index = 1
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -620.0
+offset_top = -523.0
+offset_right = 180.00024
+offset_bottom = 523.0
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="Shopkeeper" unique_id=1103464866]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -123.0
+offset_right = 276.99976
+offset_bottom = 154.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.0329949, 1.0303556)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_jp048")
+expand_mode = 2
+
+[node name="MoveShopkeeperToCenter" type="AnimationPlayer" parent="Shopkeeper" unique_id=1271414910]
+libraries/ = SubResource("AnimationLibrary_131kw")
+autoplay = &"slide_shopkeeper"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2102508757]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="MainContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=434244366]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ShopLeftMarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer" unique_id=1308252775]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="DialogueContainer" type="PanelContainer" parent="VBoxContainer/MainContainer/ShopLeftMarginContainer" unique_id=1476175684 groups=["DescriptionContainer"]]
+z_index = 5
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_tp26b")
+
+[node name="LinesContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer" unique_id=248161572]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/LinesContainer" unique_id=694211826]
+layout_mode = 2
+
+[node name="Green" type="PanelContainer" parent="VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/LinesContainer/VBoxContainer" unique_id=1050947380]
+visible = false
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_xcdpw")
+
+[node name="Red" type="PanelContainer" parent="VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/LinesContainer/VBoxContainer" unique_id=851637314]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_styles/panel = SubResource("StyleBoxFlat_vk20h")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer" unique_id=1281168172]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 55
+
+[node name="Dialogue" type="Label" parent="VBoxContainer/MainContainer/ShopLeftMarginContainer/DialogueContainer/MarginContainer" unique_id=1850999643]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Sample text"
+label_settings = SubResource("LabelSettings_vk20h")
+autowrap_mode = 2
+script = ExtResource("5_ge4d2")
+
+[node name="ShopMarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer" unique_id=2111676935]
+z_index = 4
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MainContainer/ShopMarginContainer" unique_id=647656125]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ptf86")
+
+[node name="ReceiptTexture" type="TextureRect" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer" unique_id=1346225226]
+texture_filter = 2
+layout_mode = 2
+texture = ExtResource("9_tp26b")
+expand_mode = 1
+
+[node name="Shadow" type="TextureRect" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptTexture" unique_id=1372564137]
+modulate = Color(0, 0, 0, 0.34509805)
+show_behind_parent = true
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 3.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_tp26b")
+expand_mode = 4
+
+[node name="ReceiptContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer" unique_id=406478503]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer" unique_id=1590189540]
+layout_mode = 2
+
+[node name="TopText" type="Label" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer" unique_id=50952396]
+layout_mode = 2
+text = "WELCOME TO CONVENIENTMART
+STORE#: 482
+
+THANKS FOR SHOPPING
+
+"
+label_settings = SubResource("LabelSettings_8qn5i")
+horizontal_alignment = 1
+
+[node name="LabelsForEachCategory" type="HBoxContainer" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer" unique_id=2009293112]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/LabelsForEachCategory" unique_id=1303257842]
+layout_mode = 2
+text = "Item "
+label_settings = SubResource("LabelSettings_8qn5i")
+horizontal_alignment = 1
+
+[node name="Price" type="Label" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/LabelsForEachCategory" unique_id=2052784820]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Price"
+label_settings = SubResource("LabelSettings_8qn5i")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/LabelsForEachCategory" unique_id=1806118643]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+
+[node name="Inventory" type="Label" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/LabelsForEachCategory/MarginContainer" unique_id=456182406]
+layout_mode = 2
+text = "Invtry"
+label_settings = SubResource("LabelSettings_8qn5i")
+horizontal_alignment = 1
+
+[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer" unique_id=142387067 groups=["ItemList"]]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TopText2" type="Label" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer" unique_id=1808874934]
+layout_mode = 2
+text = "------------------------------------------"
+label_settings = SubResource("LabelSettings_8qn5i")
+horizontal_alignment = 1
+
+[node name="WalletContainer" type="MarginContainer" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer" unique_id=709815124]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/WalletContainer" unique_id=1042979808]
+layout_mode = 2
+
+[node name="WalletLabel" type="Label" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/WalletContainer/HBoxContainer" unique_id=1880269592]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Wallet"
+label_settings = ExtResource("10_dww4p")
+
+[node name="Control" type="Control" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/WalletContainer/HBoxContainer" unique_id=24840499]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Wallet" type="Label" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer/WalletContainer/HBoxContainer" unique_id=799063999 groups=["WalletLabel"]]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_tp26b")
+text = "$5.00"
+label_settings = ExtResource("10_dww4p")
+horizontal_alignment = 2
+visible_characters = 9
+visible_ratio = 1.8
+
+[node name="Barcode" type="TextureRect" parent="VBoxContainer/MainContainer/ShopMarginContainer/PanelContainer/ReceiptContainer/VBoxContainer" unique_id=1386970218]
+texture_filter = 2
+texture_repeat = 1
+layout_mode = 2
+texture = ExtResource("6_ptf86")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="ControlsContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=749139526 groups=["ControlsContainer"]]
+z_index = 999
+z_as_relative = false
+custom_minimum_size = Vector2(0, 20)
+layout_direction = 2
+layout_mode = 2
+alignment = 2
+
+[node name="Spacer" type="Control" parent="VBoxContainer/ControlsContainer" unique_id=372239397]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DescriptionContainer" type="PanelContainer" parent="." unique_id=227691369]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 0)
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8qn5i")
+
+[node name="Item" type="HBoxContainer" parent="DescriptionContainer" unique_id=293286359]
+layout_mode = 2
+
+[node name="ShopItemViewportContainer" type="SubViewportContainer" parent="DescriptionContainer/Item" unique_id=1780358818]
+visibility_layer = 8193
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="SubViewport" type="SubViewport" parent="DescriptionContainer/Item/ShopItemViewportContainer" unique_id=158040253]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1080, 1080)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="DescriptionContainer/Item/ShopItemViewportContainer/SubViewport" unique_id=1248863076]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, -1.0619926, 1.5598627)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="DescriptionContainer/Item/ShopItemViewportContainer/SubViewport" unique_id=99842667]
+transform = Transform3D(-0.97168905, -0.084000535, -0.22082724, -0.22391696, 0.029217958, 0.97417027, -0.075378716, 0.99603736, -0.047199905, -31.414333, 7.5385737, -7.810216)
+
+[node name="Control" type="Control" parent="DescriptionContainer/Item" unique_id=1159186808]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="DescriptionAnimator" type="AnimationPlayer" parent="DescriptionContainer" unique_id=1001460629]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_k5co3")
+
+[node name="Blur" type="PanelContainer" parent="DescriptionContainer" unique_id=2022326365]
+z_index = 1
+material = ExtResource("4_vk20h")
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8qn5i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1955687494]
+libraries/ = SubResource("AnimationLibrary_vk20h")
+autoplay = &"Fade_in_dialogue"
+
+[node name="DebugMenu" type="Control" parent="." unique_id=1926565072 node_paths=PackedStringArray("_add100Dollars", "_toggleBgm")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_xoc10")
+_add100Dollars = NodePath("HBoxContainer/DebugContainer/ColorRect/MarginContainer/List/Add 100 dollaras to wallet2")
+_toggleBgm = NodePath("HBoxContainer/DebugContainer/ColorRect/MarginContainer/List/Toggle BGM")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DebugMenu" unique_id=1170131580]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DebugContainer" type="MarginContainer" parent="DebugMenu/HBoxContainer" unique_id=1965399841]
+z_index = 10
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ColorRect" type="ColorRect" parent="DebugMenu/HBoxContainer/DebugContainer" unique_id=1423016849]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+color = Color(0, 0, 0, 0.78431374)
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugMenu/HBoxContainer/DebugContainer/ColorRect" unique_id=642249872]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="List" type="VBoxContainer" parent="DebugMenu/HBoxContainer/DebugContainer/ColorRect/MarginContainer" unique_id=1131698381]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="DebugMenu/HBoxContainer/DebugContainer/ColorRect/MarginContainer/List" unique_id=1405117298]
+layout_mode = 2
+text = "DEBUG MENU"
+
+[node name="Add 100 dollaras to wallet2" type="Button" parent="DebugMenu/HBoxContainer/DebugContainer/ColorRect/MarginContainer/List" unique_id=911804175]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+text = " Add 100 dollars to wallet"
+icon = ExtResource("15_k5co3")
+flat = true
+
+[node name="Toggle BGM" type="Button" parent="DebugMenu/HBoxContainer/DebugContainer/ColorRect/MarginContainer/List" unique_id=1022124320]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+text = "Toggle BGM
+"
+icon = ExtResource("15_k5co3")
+flat = true
+
+[node name="Spacer" type="Control" parent="DebugMenu/HBoxContainer/DebugContainer/ColorRect/MarginContainer/List" unique_id=1781143825]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Credits" type="Label" parent="DebugMenu/HBoxContainer/DebugContainer/ColorRect/MarginContainer/List" unique_id=135953318]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Credits:
+
+Music: Marimba - Paul Hardcastle
+Audio/SFX: 
+Persona 5 
+
+Images/Textures:
+Julio Cacko (input)
+OtakuUSA
+Adobe Stock
+Shutterstock
+Cheez-It (Kellanova)
+
+
+Programs:
+Blender
+Krita
+GIMP
+Godot Engine
+Audacity"
+label_settings = SubResource("LabelSettings_6kbe7")

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dqxrwppb4e5i6"]
+
+[ext_resource type="PackedScene" uid="uid://eqe38orvfud5" path="res://assets/3d/store/store.glb" id="1_hbh1y"]
+
+[sub_resource type="Environment" id="Environment_oqwcg"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" unique_id=1599607398]
+environment = SubResource("Environment_oqwcg")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1930139103]
+transform = Transform3D(0.9212004, 0.012575144, 0.38888517, 0, 0.99947757, -0.032319505, -0.38908842, 0.029772738, 0.9207192, 18.386934, 2.017838, 6.9149027)
+size = 10.347
+near = 0.035
+far = 100.0
+
+[node name="store" parent="." unique_id=1838967549 instance=ExtResource("1_hbh1y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00042819977, 0.020338535, -0.001953125)

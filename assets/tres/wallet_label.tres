@@ -1,0 +1,15 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://chx1nafolt53e"]
+
+[ext_resource type="FontFile" uid="uid://paudbmk4a0oh" path="res://assets/fonts/MonacoNerdFontMono-Regular.ttf" id="1_458pa"]
+
+[sub_resource type="FontVariation" id="FontVariation_vk20h"]
+base_font = ExtResource("1_458pa")
+variation_transform = Transform2D(1.5, 0, 0, 1, 0, 0)
+spacing_glyph = 10
+
+[resource]
+font = SubResource("FontVariation_vk20h")
+font_size = 25
+font_color = Color(0, 0, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)

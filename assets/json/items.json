@@ -1,0 +1,31 @@
+{
+	"1": {
+		"name": "Medicine",
+		"description": "Not sure what it really does, but it heals 5 HP.",
+		"type": "Heal",
+		"model": "res://assets/3d/medicine.glb",
+		"itemPoints": "5"
+	},
+
+	"2": {
+		"name": "Magazine",
+		"description": "Does nothing. You can read it for fun, I suppose. ",
+		"model": "res://assets/3d/magazine.glb",
+		"type": "Misc",
+	},
+
+	"3": {
+		"name": "Bag of chips",
+		"description": "There's more air than there is chips. Heals 5 HP. \n\n(Demonstrates how placeholder assets are used as a fallback for missing assets or incorrectly listed items)",
+		"type": "Heal",
+		"itemPoints": "5"
+	},
+	
+	"4": {
+		"name": "Hot dog",
+		"description": "A bit stale, but still edible. Heals 15 HP",
+		"type": "Heal",
+		"model": "res://assets/3d/hot-dog.glb",
+		"itemPoints": "1"
+	},
+}

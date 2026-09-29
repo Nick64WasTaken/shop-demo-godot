@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://b4chkri38lkam"]
+
+[ext_resource type="Script" uid="uid://dcxc0rfd53mab" path="res://scripts/misc/ActionPrompt.cs" id="1_bdr73"]
+[ext_resource type="Texture2D" uid="uid://cluttbugfobye" path="res://assets/textures/placeholder.png" id="2_lpex0"]
+[ext_resource type="FontFile" uid="uid://bw27y3pfckux1" path="res://assets/fonts/helvetica-light-587ebe5a59211.ttf" id="3_lpex0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vax5u"]
+font = ExtResource("3_lpex0")
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.4862745)
+shadow_offset = Vector2(1.5, 1.5)
+
+[node name="ActionPrompt" type="MarginContainer" unique_id=844219564]
+scale = Vector2(0.98825735, 0.99878234)
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+script = ExtResource("1_bdr73")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1637008083]
+layout_mode = 2
+
+[node name="Texture" type="TextureRect" parent="HBoxContainer" unique_id=239527521]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+texture = ExtResource("2_lpex0")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Description" type="Label" parent="HBoxContainer" unique_id=898770385]
+layout_mode = 2
+text = "Pay"
+label_settings = SubResource("LabelSettings_vax5u")
